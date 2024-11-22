@@ -1,0 +1,41 @@
+const tarefaInput = document.getElementById("tarefaInput");
+const adicionarTarefaBtn = document.getElementById("adicionarTarefa");
+const listaTarefas = document.getElementById("listaTarefas");
+
+// Verificação de elementos antes de adicionar eventos
+if (tarefaInput && adicionarTarefaBtn && listaTarefas) {
+    adicionarTarefaBtn.addEventListener("click", adicionarTarefa);
+} else {
+    console.error("Erro: Elementos HTML não encontrados.");
+}
+
+
+function adicionarTarefa() {
+    const tarefa = tarefaInput.value.trim();
+    if (tarefa !== "") {
+        adicionarTarefaNaLista(tarefa);
+        tarefaInput.value = "";
+    }
+}
+
+function adicionarTarefaNaLista(tarefa) {
+    const novoItem = document.createElement("li");
+    const tarefaTexto = document.createElement("span");
+    const removerTarefaBtn = document.createElement("span");
+
+    tarefaTexto.classList.add("tarefa-texto");
+    tarefaTexto.textContent = tarefa;
+
+    removerTarefaBtn.classList.add("remover-tarefa");
+    removerTarefaBtn.textContent = "&#x2716;";
+    removerTarefaBtn.addEventListener("click", removerTarefa);
+
+    novoItem.appendChild(tarefaTexto);
+    novoItem.appendChild(removerTarefaBtn);
+    listaTarefas.appendChild(novoItem);
+}
+
+function removerTarefa(event) {
+    const item = event.target.parentNode;
+    listaTarefas.removeChild(item);
+}
